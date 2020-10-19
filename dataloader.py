@@ -24,10 +24,8 @@ class dataloader(torch.utils.data.Dataset):
         image = image.unfold(0, config.patch_size, config.patch_size).unfold(1, config.patch_size, config.patch_size)
         image = image.reshape(image.shape[0], image.shape[1], image.shape[2]*image.shape[3]*image.shape[4])
         image = image.view(-1, image.shape[-1])
-        cls_token = [2]
 
         return {
-            'patch_embeddings' : image,
+            'patches' : image,
             'label' : torch.tensor(label, dtype=torch.long),
-            'cls_token' : torch.tensor(cls_token, dtype=torch.long)
         }

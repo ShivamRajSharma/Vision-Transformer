@@ -13,8 +13,8 @@ import albumentations as alb
 
 
 def run():
-    train_dataset = torchvision.datasets.CIFAR10(root='input/train', train=True)
-    val_dataset = torchvision.datasets.CIFAR10(root='input/val', train=False)
+    train_dataset = torchvision.datasets.CIFAR10(root='input/data', train=True)
+    val_dataset = torchvision.datasets.CIFAR10(root='input/data', train=False)
 
     train_transform = alb.Compose([
         alb.Resize(config.image_height, config.image_width, always_apply=True),

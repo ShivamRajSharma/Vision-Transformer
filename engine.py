@@ -17,10 +17,9 @@ def train_fn(model, dataloader, optimizer, scheduler, device):
     for num_steps, data in tqdm(enumerate(dataloader), total=len(dataloader)):
         for p in model.parameters():
             p.grad = None
-        patch_embeddings = data['patch_embeddings'].to(device)
-        cls_tokens  = data['cls_token'].to(device)
+        patches = data['patches'].to(device)
         label = data['label'].to(device)
-        output = model(patch_embeddings)
+        output = model(patches)
         loss = loss_fn(label, output)
         running_loss += loss.item()
         running_acc += accuracy_fn(label, output).item()
@@ -39,10 +38,9 @@ def eval_fn(model, dataloader, device):
     model.eval()
     with torch.no_grad():
         for num_steps, data in tqdm(enumerate(dataloader), total=len(dataloader)):
-            patch_embeddings = data['patch_embeddings'].to(device)
-            cls_tokens  = data['cls_token'].to(device)
+            patches = data['patches'].to(device)
             label = data['label'].to(device)
-            output = model(patch_embeddings)
+            output = model(patches)
             loss = loss_fn(label, output)
             running_loss += loss.item()
             running_acc += accuracy_fn(label, output).item()

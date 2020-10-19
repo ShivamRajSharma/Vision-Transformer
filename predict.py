@@ -34,8 +34,8 @@ def predict(image_path):
 
     image = image.unfold(0, config.patch_size, config.patch_size).unfold(1, config.patch_size, config.patch_size)
     image = image.reshape(image.shape[0], image.shape[1], image.shape[2]*image.shape[3]*image.shape[4])
-    patch = image.view(-1, image.shape[-1])
-    patch = patch.unsqueeze(0)
+    patches = image.view(-1, image.shape[-1])
+    patches = patches.unsqueeze(0)
 
     idx_to_class = {
         0: 'airplane',
@@ -49,8 +49,8 @@ def predict(image_path):
         8: 'ship',
         9: 'truck'
     }
-
-    output = model(patch)
+    with torch.no_grad():
+        output = model(patches)
     
     prediction_class = torch.softmax(output, dim=-1)[0].argmax(dim=-1).item()
     prediction = idx_to_class[prediction_class]
