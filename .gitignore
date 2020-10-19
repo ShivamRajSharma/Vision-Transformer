@@ -1,7 +1,6 @@
 *.csv
 *.pickle
 __pycache__
-model.bin
 *.meta
 *.html
 data_batch*
