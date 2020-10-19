@@ -48,9 +48,3 @@ def eval_fn(model, dataloader, device):
     epoch_acc = running_acc/len(dataloader)
     
     return epoch_acc, epoch_loss
-
-if __name__ == "__main__":
-    a = torch.randint(0, 10, (100,))
-    b = torch.randint(0, 10, (100,))
-    acc = accuracy_fn(a, b).item()
-    print(acc*100)

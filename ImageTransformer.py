@@ -154,7 +154,6 @@ if __name__ == "__main__":
         num_classes = config.num_classes,
     )
     
-    a = torch.randn(4, 4, 16*16*3)
-    cls_token = torch.randint(2, 3, (4, 1))
-    output = model(a, cls_token)
+    a = torch.randn(4, config.max_len -1, 8*8*3)
+    output = model(a)
     print(output.shape)
