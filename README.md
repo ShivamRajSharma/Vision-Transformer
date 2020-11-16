@@ -18,4 +18,4 @@ directly train the ViT on CIFAR-10 dataset.
 
 ## Results 
 
-The ViT took about __ minutes to train on CIFAR-10 dataset. Without any prior pre-training we were able to achieve about 74% accuracy on validation dataset
+The ViT took about __ minutes to train on CIFAR-10 dataset. Without any prior pre-training we were able to achieve about 74% accuracy on validation dataset.
