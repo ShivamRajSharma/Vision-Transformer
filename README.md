@@ -8,3 +8,14 @@ directly train the ViT on CIFAR-10 dataset.
 <p align="center">
   <img src="https://github.com/ShivamRajSharma/Vision-Transformer/blob/master/ViT.png" height="300"/>
 </p>
+
+## Usage
+
+1) Install all the libraries required ```pip install -r requirements
+2) Download the dataset from https://www.cs.toronto.edu/~kriz/cifar.html and place it inside the ```input/```
+3) Run ```python3 train.py```
+4) For inference run ```python3 predict.py```
+
+## Results 
+
+The ViT took about __ minutes to train on CIFAR-10 dataset. Without any prior pre-training we were able to achieve about 74% accuracy on validation dataset
