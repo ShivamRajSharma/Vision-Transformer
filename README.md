@@ -11,10 +11,10 @@ directly train the ViT on CIFAR-10 dataset.
 
 ## Usage
 
-1) Install all the libraries required ```pip install -r requirements
-2) Download the dataset from https://www.cs.toronto.edu/~kriz/cifar.html and place it inside the ```input/```
-3) Run ```python3 train.py```
-4) For inference run ```python3 predict.py```
+1) Install all the libraries required ```pip install -r requirements``` .
+2) Download the dataset from https://www.cs.toronto.edu/~kriz/cifar.html and place it inside the ```input/``` .
+3) Run ```python3 train.py``` .
+4) For inference run ```python3 predict.py``` .
 
 ## Results 
 
