@@ -19,3 +19,16 @@ directly train the ViT on CIFAR-10 dataset.
 ## Results 
 
 The ViT took about __ minutes to train on CIFAR-10 dataset. Without any prior pre-training we were able to achieve about 74% accuracy on validation dataset.
+
+## Extra Info
+<pre>
+1) Training Stratergy      : Training the whole network from scratch.
+2) Optimizer               : Adam optimizer was used with weight decay.
+3) Learning Rate Scheduler : Linear decay with warmup.
+4) Regularization          : Dropout, HorizontalFlip, RandomBrightness, RandomContrast, RGBShift, GaussNoise
+5) Loss                    : Categorical Cross-Entropy Loss.
+6) Performance Metric      : Accuracy.
+7) Performance             : 74% Accuracy
+7) Epochs Trained          : .
+8) Training Time           : .
+</pre>
