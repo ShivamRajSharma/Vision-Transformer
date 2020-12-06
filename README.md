@@ -20,6 +20,10 @@ directly train the ViT on CIFAR-10 dataset.
 
 The ViT took about __ minutes to train on CIFAR-10 dataset. Without any prior pre-training we were able to achieve about 74% accuracy on validation dataset.
 
+<p align="center">
+  <img src="https://github.com/ShivamRajSharma/Vision-Transformer/blob/master/Acc_Plot.png" height="300"/>
+</p>
+
 ## Extra Info
 <pre>
 1) Training Stratergy      : Training the whole network from scratch.
@@ -29,6 +33,6 @@ The ViT took about __ minutes to train on CIFAR-10 dataset. Without any prior pr
 5) Loss                    : Categorical Cross-Entropy Loss.
 6) Performance Metric      : Accuracy.
 7) Performance             : 74% Accuracy
-7) Epochs Trained          : .
-8) Training Time           : .
+7) Epochs Trained          : 60
+8) Training Time           : 12 minutes
 </pre>
