@@ -60,4 +60,3 @@ if __name__ == "__main__":
     image_path = 'image.jpg'
     predict(image_path)
 
-

@@ -20,7 +20,7 @@ def run():
         alb.Resize(config.image_height, config.image_width, always_apply=True),
         alb.Normalize(config.mean, config.std, always_apply=True),
         alb.HorizontalFlip(p=0.1),
-        alb.RandomBrightness(p=0.1),
+        alb.RandomBrightness(p=0.2),
         alb.RandomContrast(p=0.1),
         alb.RGBShift(p=0.1),
         alb.GaussNoise(p=0.1),
@@ -83,7 +83,6 @@ def run():
     
     best_acc = 0
     best_model = 0
-
     for epoch in range(config.Epochs):
         train_acc, train_loss = engine.train_fn(model, train_loader, optimizer, scheduler, device)
         val_acc, val_loss = engine.eval_fn(model, val_loader, device)
@@ -94,7 +93,7 @@ def run():
             best_acc = val_acc
             best_model = model.state_dict()
 
-        torch.save(best_model, config.Model_Path)    
+    torch.save(best_model, config.Model_Path)    
 
 if __name__ == "__main__":
     run()

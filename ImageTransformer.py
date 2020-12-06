@@ -85,9 +85,11 @@ class TransformerBlock(nn.Module):
         return out
 
 
-class ImageTransformer(nn.Module):
+class ViT(nn.Module):
     def __init__(
         self,
+        patch_height,
+        patch_width,
         max_len,
         embedding_dims,
         heads,
@@ -97,9 +99,9 @@ class ImageTransformer(nn.Module):
         layer_norm_eps,
         num_classes
     ):
-        super(ImageTransformer, self).__init__()
+        super(ViT, self).__init__()
         
-        self.bert_blocks = nn.Sequential(
+        self.vit_blocks = nn.Sequential(
             *[
                 TransformerBlock(
                     embedding_dims,
@@ -112,9 +114,11 @@ class ImageTransformer(nn.Module):
             ]
             
         )
+        self.patch_height = patch_height
+        self.patch_width = patch_width
         self.cls_embedding = nn.Parameter(torch.zeros(1, 1, embedding_dims))
         self.patch_embeddings = nn.Linear(embedding_dims, embedding_dims)
-        self.postional_embedding = nn.Parameter(torch.zeros(1, max_len, embedding_dims))
+        self.postional_embedding = nn.Parameter(torch.zeros(1, max_len+1, embedding_dims))
         self.to_cls_token = nn.Identity()
         self.classifier = nn.Sequential(
             nn.LayerNorm(embedding_dims),
@@ -126,13 +130,23 @@ class ImageTransformer(nn.Module):
         self.dropout = nn.Dropout(dropout)
 
 
-    def forward(self, patches):
+    def forward(self, images):
+        patches = images.unfold(2, self.patch_height, self.patch_width).unfold(3, self.patch_height, self.patch_width)
+        patches = patches.permute(0, 2, 3, 1, 4, 5)
+        patches = patches.reshape(
+            patches.shape[0],
+            patches.shape[1],
+            patches.shape[2],
+            patches.shape[3]*patches.shape[4]*patches.shape[5]
+        )
+        patches = patches.view(patches.shape[0], -1, patches.shape[-1])
+
         x = self.cls_embedding.expand(patches.shape[0], -1, -1)
         patch_embeddings = self.patch_embeddings(patches)
         x = torch.cat((x, patch_embeddings), dim=1) + self.postional_embedding
         x = self.dropout(x)
         mask = None
-        for block in self.bert_blocks:
+        for block in self.vit_blocks:
             x = block(x, mask)
         out = self.to_cls_token(x[:, 0])
         out = self.classifier(out)
@@ -141,19 +155,20 @@ class ImageTransformer(nn.Module):
 
 
 if __name__ == "__main__":
-    import config
 
-    model = ImageTransformer(
-        embedding_dims = config.embedding_dims,
-        dropout = config.dropout,
-        heads = config.heads,
-        num_layers = config.num_layers,
-        forward_expansion = config.forward_expansion,
-        max_len = config.max_len,
-        layer_norm_eps = config.layer_norm_eps,
-        num_classes = config.num_classes,
+    model = ViT(
+        patch_height = 16,
+        patch_width = 16,
+        embedding_dims = 768,
+        dropout = 0.1,
+        heads = 4,
+        num_layers = 4,
+        forward_expansion = 4,
+        max_len = int((32*32)/(16*16)),
+        layer_norm_eps = 1e-5,
+        num_classes = 10,
     )
-    
-    a = torch.randn(4, config.max_len -1, 8*8*3)
+
+    a = torch.randn(32, 3, 32, 32)
     output = model(a)
     print(output.shape)

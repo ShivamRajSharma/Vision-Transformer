@@ -4,7 +4,7 @@ image_path = 'input/'
 Model_Path = 'model/model.bin'
 
 Batch_Size = 64
-Epochs = 150
+Epochs = 60
 LR = 8e-4
 weight_decay = 0.1
 
