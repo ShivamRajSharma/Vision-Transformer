@@ -33,6 +33,6 @@ The ViT took about __ minutes to train on CIFAR-10 dataset. Without any prior pr
 5) Loss                    : Categorical Cross-Entropy Loss.
 6) Performance Metric      : Accuracy.
 7) Performance             : 74% Accuracy
-7) Epochs Trained          : 60
+7) Epochs Trained          : 80
 8) Training Time           : 12 minutes
 </pre>
